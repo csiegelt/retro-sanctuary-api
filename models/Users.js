@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
-  username: {
+  nombre: {
     type: String,
     required: [true, 'El nombre de usuario es obligatorio'],
     unique: true,
@@ -20,13 +21,29 @@ const userSchema = new mongoose.Schema({
     password: {
     type: String,
     required: [true, 'La contraseña es obligatoria'],
-    minlength: [6, 'La contraseña debe tener al menos 6 caracteres']
+    minlength: [6, 'La contraseña debe tener al menos 6 caracteres'],
+    select: false
   },
-  isdeleted: {
-    type: Boolean,
-    default: false
+  role: {  
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
   }
+  
 }, { timestamps: true, versionKey: false });
+
+// Middleware para hashear contraseña antes de guardar
+userSchema.pre('save', async function() {
+  if (!this.isModified('password')) return;
+  
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+// Método para comparar contraseñas
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 export const User = mongoose.model('User', userSchema);
 
