@@ -482,30 +482,7 @@ curl -X DELETE http://localhost:3000/api/games/65f1234567890abcdef12345 \
 
 **Respuesta (204):** Sin contenido
 
----
 
-## 🔒 Autenticación y Permisos
-
-### Niveles de acceso:
-
-| Endpoint | Público | Usuario | Admin |
-|----------|---------|---------|-------|
-| POST /api/auth/register | ✅ | ✅ | ✅ |
-| POST /api/auth/login | ✅ | ✅ | ✅ |
-| GET /api/consoles | ✅ | ✅ | ✅ |
-| GET /api/consoles/:id | ✅ | ✅ | ✅ |
-| POST /api/consoles | ❌ | ❌ | ✅ |
-| PUT /api/consoles/:id | ❌ | ❌ | ✅ |
-| DELETE /api/consoles/:id | ❌ | ❌ | ✅ |
-| GET /api/games | ✅ | ✅ | ✅ |
-| GET /api/games/:id | ✅ | ✅ | ✅ |
-| POST /api/games | ❌ | ✅ | ✅ |
-| PUT /api/games/:id | ❌ | ✅* | ✅* |
-| DELETE /api/games/:id | ❌ | ✅* | ✅* |
-
-*Solo el usuario que creó el juego
-
----
 
 ## ⚠️ Manejo de Errores
 
@@ -645,13 +622,43 @@ backend_modulo2/
 
 ---
 
-## 🤝 Contribuir
+## � Testing con Postman
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+El proyecto incluye una colección completa de Postman lista para importar con todos los endpoints configurados.
+
+### Importar la colección:
+
+1. **Descarga o copia el archivo:** `postman-collection.json`
+2. **Abre Postman** → Click en "Import"
+3. **Arrastra el archivo** o pega el contenido JSON
+4. **¡Listo!** Verás la colección "Retro Sanctuary API" organizada por carpetas
+
+### Características de la colección:
+
+- ✅ **Variables automáticas**: Los tokens se guardan automáticamente después del login
+- ✅ **Carpetas organizadas**: Authentication, Users, Consoles, Games
+- ✅ **Headers preconfigurados**: Authorization y Content-Type incluidos
+- ✅ **Ejemplos de body**: Todos los requests tienen datos de ejemplo
+- ✅ **Variables de entorno**: `base_url`, `token`, `admin_token` preconfiguradas
+
+### Flujo recomendado:
+
+1. **Login Admin** → Guarda automáticamente el `admin_token`
+2. **Register User** → Guarda automáticamente el `token` de usuario
+3. Usa los demás endpoints según necesites
+
+### Variables disponibles:
+
+- `{{base_url}}`: `http://localhost:3000`
+- `{{token}}`: Token del usuario actual
+- `{{admin_token}}`: Token del administrador
+- `{{user_id}}`: ID de usuario para operaciones
+- `{{console_id}}`: ID de consola para operaciones
+- `{{game_id}}`: ID de juego para operaciones
+
+---
+
+
 
 ---
 
