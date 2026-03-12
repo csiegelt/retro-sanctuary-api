@@ -577,6 +577,7 @@ backend_modulo2/
 │   ├── auth.controller.js   # Lógica de autenticación
 │   ├── console.controller.js # Lógica de consolas
 │   └── game.controller.js   # Lógica de videojuegos
+│   └── user.controller.js   # Lógica de usuarios
 ├── middlewares/
 │   ├── auth.middleware.js   # Verificación JWT y roles
 │   └── error.middleware.js  # Manejo centralizado de errores
@@ -588,6 +589,7 @@ backend_modulo2/
 │   ├── auth.routes.js       # Rutas de autenticación
 │   ├── console.routes.js    # Rutas de consolas
 │   └── game.routes.js       # Rutas de videojuegos
+│   └── user.routes.js       # Rutas de usuarios
 ├── utils/
 │   ├── AppError.js          # Clase de errores personalizados
 │   └── catchAsync.js        # Wrapper para async/await
