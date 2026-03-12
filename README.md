@@ -591,6 +591,8 @@ backend_modulo2/
 ├── utils/
 │   ├── AppError.js          # Clase de errores personalizados
 │   └── catchAsync.js        # Wrapper para async/await
+├── postman/
+│   └── postman-collection.json  # Colección de Postman
 ├── .env                     # Variables de entorno
 ├── .gitignore
 ├── package.json
@@ -628,7 +630,7 @@ El proyecto incluye una colección completa de Postman lista para importar con t
 
 ### Importar la colección:
 
-1. **Descarga o copia el archivo:** `postman-collection.json`
+1. **Descarga o copia el archivo:** `postman/postman-collection.json`
 2. **Abre Postman** → Click en "Import"
 3. **Arrastra el archivo** o pega el contenido JSON
 4. **¡Listo!** Verás la colección "Retro Sanctuary API" organizada por carpetas
