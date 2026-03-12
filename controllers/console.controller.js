@@ -4,7 +4,7 @@ import { AppError } from '../utils/AppError.js';
 import { catchAsync } from '../utils/catchAsync.js';
 
 export const getAllConsoles = catchAsync(async (req, res) => {
-  const consoles = await Console.find();
+  const consoles = await Console.find({ isDeleted: false });
   
   res.status(200).json({
     status: 'success',
@@ -14,7 +14,7 @@ export const getAllConsoles = catchAsync(async (req, res) => {
 });
 
 export const getConsole = catchAsync(async (req, res, next) => {
-  const console = await Console.findById(req.params.id);
+  const console = await Console.findOne({ _id: req.params.id, isDeleted: false });
   
   if (!console) {
     throw new AppError('Consola no encontrada', 404);
@@ -70,11 +70,11 @@ export const deleteConsole = catchAsync(async (req, res, next) => {
 });
 
 export const getConsolesWithGames = catchAsync(async (req, res) => {
-  const consoles = await Console.find();
+  const consoles = await Console.find({ isDeleted: false });
   
   const consolesWithGames = await Promise.all(
     consoles.map(async (console) => {
-      const games = await Game.find({ console: console._id })
+      const games = await Game.find({ console: console._id, isDeleted: false })
         .select('titulo genero precioEstimado fechaLanzamiento')
         .populate('user', 'nombre email');
       

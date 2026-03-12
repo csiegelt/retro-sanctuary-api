@@ -3,7 +3,7 @@ import { AppError } from '../utils/AppError.js';
 import { catchAsync } from '../utils/catchAsync.js';
 
 export const getAllGames = catchAsync(async (req, res) => {
-  const games = await Game.find()
+  const games = await Game.find({ isDeleted: false })
     .populate('console', 'nombre fabricante añoLanzamiento')
     .populate('user', 'nombre email');
   
@@ -15,7 +15,7 @@ export const getAllGames = catchAsync(async (req, res) => {
 });
 
 export const getGame = catchAsync(async (req, res, next) => {
-  const game = await Game.findById(req.params.id)
+  const game = await Game.findOne({ _id: req.params.id, isDeleted: false })
     .populate('console', 'nombre fabricante añoLanzamiento')
     .populate('user', 'nombre email');
   
@@ -78,7 +78,8 @@ export const deleteGame = catchAsync(async (req, res, next) => {
     throw new AppError('Solo puedes eliminar tus propios videojuegos', 403);
   }
   
-  await game.deleteOne();
+  game.isDeleted = true;
+  await game.save();
   
   res.status(204).json({
     status: 'success',
